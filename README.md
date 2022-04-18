@@ -13,8 +13,8 @@ This project uses [geerlingguy/ansible-role-docker](https://github.com/geerlingg
 
 > :package: This box is also on **Vagrant Cloud** as [`dmotte/dockerbox`](https://app.vagrantup.com/dmotte/boxes/dockerbox).
 
-> :calendar: The build process of this Vagrant box is **triggered automatically every month** (thanks, [GitHub Actions](https://github.com/features/actions)! :smile:) to ensure that you get it with all the latest updated packages. See the [workflow file](.github/workflows/release.yml) for further information.
+> :calendar: The build and release process of this Vagrant box is **triggered automatically every month** (thanks, [GitHub Actions](https://github.com/features/actions)! :smile:) to ensure that you get it with all the latest updated packages. See the [workflow file](.github/workflows/release.yml) for further information.
 
 ## Usage
 
-TODO
+Please refer to the :file_folder: `test` folder to see an example of how I use this box.
