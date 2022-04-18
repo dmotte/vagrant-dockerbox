@@ -29,7 +29,6 @@
           - curl
           - socat
           - jq
-          - yq # TODO check if these packages work
 
     - name: Pull the nginx Docker image
       docker_image:
