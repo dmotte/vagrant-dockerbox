@@ -1,2 +1,5 @@
 # vagrant-dockerbox
-Debian Vagrant box with Docker (and docker-compose)
+
+![](icon-128.png)
+
+**Debian Vagrant box** with **Docker** (and **docker-compose**).
