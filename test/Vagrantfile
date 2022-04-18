@@ -2,15 +2,21 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-    config.vm.box = "debian/bullseye64"
+    config.vm.box = "dmotte/dockerbox"
 
-    config.vm.hostname = "dockerbox"
+    config.vm.hostname = "dockerbox01"
+
+    config.vm.provider "virtualbox" do |vb|
+        vb.memory = 4096
+        vb.cpus = 4
+    end
+
+    config.vm.network "private_network", ip: "192.168.56.100"
 
     config.vm.provision "ansible" do |ansible|
-        ansible.galaxy_role_file = "requirements.yml"
         ansible.playbook = "playbook.yml"
         ansible.extra_vars = { ansible_python_interpreter:"/usr/bin/python3" }
     end
 
-    config.ssh.insert_key = false # This is usually recommended for base boxes
+    # TODO ping?
 end
