@@ -1,0 +1,21 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: all
+
+  tasks:
+    - name: Include the geerlingguy.pip role
+      include_role: { name: geerlingguy.pip }
+      vars:
+        ansible_become: yes
+        pip_install_packages: [{ name: docker }]
+
+    - name: Include the geerlingguy.docker role
+      include_role: { name: geerlingguy.docker }
+      vars:
+        ansible_become: yes
+        docker_users: ["{{ ansible_user }}"]
+
+    - name: Reset the Ansible SSH connection to reload the current user's permissions
+      # It's a good practice to reset the connection after including the
+      # geerlingguy.docker role, since it adds the ansible_user to the docker group
+      meta: reset_connection

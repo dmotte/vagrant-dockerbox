@@ -1,0 +1,32 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: all
+
+  tasks:
+    - name: Set system timezone to Europe/Rome
+      become: yes
+      timezone:
+        name: Europe/Rome
+
+    - name: Execute apt update only if the last one is more than 1 hour ago
+      become: yes
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+      when: ansible_pkg_mgr == "apt" # TODO check if this works
+
+    - name: Ensure some packages are installed
+      become: yes
+      package:
+        name:
+          - rsync # Needed by the "synchronize" Ansible module
+          - git
+          - nano
+          - tmux
+          - tree
+          - wget
+          - zip
+          - curl
+          - socat
+          - jq
+          - yq # TODO check if these packages work
