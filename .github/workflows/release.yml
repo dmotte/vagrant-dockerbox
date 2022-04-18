@@ -54,10 +54,10 @@ jobs:
       - name: Login to Vagrant Cloud
         run: vagrant cloud auth login --token "${{ secrets.VAGRANTCLOUD_TOKEN }}"
 
-      - name: Publish the box to Vagrant Cloud # TODO check if this works, especially github.sha
+      - name: Publish the box to Vagrant Cloud
         run: >
           vagrant cloud publish
-          -s "Debian Vagrant box with Docker (and docker-compose) (https://github.com/dmotte/vagrant-dockerbox)"
+          -s "Debian Vagrant box with Docker (and docker-compose) (github.com/dmotte/vagrant-dockerbox)"
           --version-description "This version has been released automatically with GitHub Actions, commit ${{ github.sha }}"
           --no-private --release --force
           dmotte/dockerbox "$(date +%Y.%m.%d.%H%M)" virtualbox package.box

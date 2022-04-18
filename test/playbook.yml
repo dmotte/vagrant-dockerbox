@@ -8,12 +8,12 @@
       timezone:
         name: Europe/Rome
 
-    - name: Execute apt update only if the last one is more than 1 hour ago
+    - name: Execute apt update if the last one is more than 1 hour ago
       become: yes
       apt:
         update_cache: yes
         cache_valid_time: 3600
-      when: ansible_pkg_mgr == "apt" # TODO check if this works
+      when: ansible_pkg_mgr == "apt"
 
     - name: Ensure some packages are installed
       become: yes
@@ -30,3 +30,17 @@
           - socat
           - jq
           - yq # TODO check if these packages work
+
+    - name: Pull the nginx Docker image
+      docker_image:
+        name: nginx
+        source: pull
+
+    - name: Main container
+      docker_container:
+        name: nginx-example
+        image: nginx
+        keep_volumes: no # Do not retain **anonymous** volumes when the container is removed
+        restart_policy: always
+        ports:
+          - 80:80

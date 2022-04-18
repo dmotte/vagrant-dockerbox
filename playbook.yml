@@ -3,12 +3,12 @@
 - hosts: all
 
   tasks:
-    - name: Execute apt update only if the last one is more than 1 hour ago
+    - name: Execute apt update if the last one is more than 1 hour ago
       become: yes
       apt:
         update_cache: yes
         cache_valid_time: 3600
-      when: ansible_pkg_mgr == "apt" # TODO check if this works
+      when: ansible_pkg_mgr == "apt"
 
     - name: Include the geerlingguy.pip role
       include_role: { name: geerlingguy.pip }
