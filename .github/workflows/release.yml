@@ -1,0 +1,61 @@
+---
+name: release
+
+# This workflow requires a VAGRANTCLOUD_TOKEN secret to be defined in the GitHub
+# repository settings.
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - test/**
+      - icon-*.png
+      - LICENSE
+      - README.md
+  # TODO schedule
+
+jobs:
+  release:
+    # We use this virtual environment because it supports nested virtualization.
+    # See https://github.com/actions/virtual-environments/issues/433 for more
+    # information
+    runs-on: macos-10.15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache Vagrant boxes
+        uses: actions/cache@v2
+        with:
+          path: ~/.vagrant.d/boxes
+          key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
+          restore-keys: |
+            ${{ runner.os }}-vagrant-
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Set up Ansible
+        run: pip3 install ansible
+
+      - name: Bring up the VM
+        run: vagrant up --provision
+
+      - name: Create the package.box file
+        run: vagrant package
+
+      - name: Destroy the VM
+        run: vagrant destroy -f
+
+      - name: Login to Vagrant Cloud
+        run: vagrant cloud auth login --token "${{ secrets.VAGRANTCLOUD_TOKEN }}"
+
+      - name: Publish the box to Vagrant Cloud # TODO check if this works, especially github.sha
+        run: >
+          vagrant cloud publish
+          -s "Debian Vagrant box with Docker (and docker-compose) (https://github.com/dmotte/vagrant-dockerbox)"
+          --version-description "This version has been released automatically with GitHub Actions, commit ${{ github.sha }}"
+          --no-private --release --force
+          dmotte/dockerbox "$(date +%Y.%m.%d.%H%M)" virtualbox package.box
