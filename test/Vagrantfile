@@ -13,16 +13,18 @@ Vagrant.configure("2") do |config|
 
     config.vm.network "private_network", ip: "192.168.56.100"
 
+    config.vm.synced_folder "~/git", "/home/vagrant/git"
+
     config.vm.provision "ansible" do |ansible|
         ansible.playbook = "playbook.yml"
-        ansible.extra_vars = { ansible_python_interpreter:"/usr/bin/python3" }
+        ansible.extra_vars = { ansible_python_interpreter: "/usr/bin/python3" }
     end
 
     # Ping the default route once (without even waiting for a reply) to fix a
     # known network issue. See
     # https://weisser-zwerg.dev/posts/local-discourse-on-vagrant/#vagrant-up
     # for more information
-    config.vm.provision "shell", inline: <<-SHELL
+    config.vm.provision "shell", run: "always", inline: <<-SHELL
         ping 192.168.56.1 -c1 -W.1 || true
     SHELL
 end
