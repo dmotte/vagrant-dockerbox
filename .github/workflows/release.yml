@@ -27,6 +27,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Cache Vagrant boxes
+        # Caches that are not accessed within the last week will be evicted
+        # (see https://github.com/actions/cache#cache-limits)
         uses: actions/cache@v2
         with:
           path: ~/.vagrant.d/boxes
@@ -41,6 +43,9 @@ jobs:
 
       - name: Set up Ansible
         run: pip3 install ansible
+
+      - name: Vagrant base box update
+        run: vagrant box update
 
       - name: Bring up the VM
         run: vagrant up --provision
