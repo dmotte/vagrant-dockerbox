@@ -3,7 +3,7 @@
 - hosts: all
 
   tasks:
-    - name: Set system timezone to Europe/Rome
+    - name: Set custom timezone
       become: yes
       timezone:
         name: Europe/Rome
