@@ -20,7 +20,7 @@
       include_role: { name: geerlingguy.pip }
       vars:
         ansible_become: yes
-        pip_install_packages: [{ name: docker }]
+        pip_install_packages: [docker]
 
     - name: Include the geerlingguy.docker role
       include_role: { name: geerlingguy.docker }
