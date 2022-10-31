@@ -6,7 +6,7 @@
     - name: Check Ansible version
       ansible.builtin.assert:
         that: ansible_version.full is version_compare('2.9', '>=')
-        msg: The Ansible version is too old for this notebook
+        msg: The Ansible version is too old for this playbook
 
   tasks:
     - name: Execute apt update if the last one is more than 1 hour ago
