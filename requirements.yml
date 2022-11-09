@@ -1,3 +1,6 @@
 ---
-- geerlingguy.pip
-- geerlingguy.docker
+roles:
+  - name: geerlingguy.pip
+    # version: "2.2.0"
+  - name: geerlingguy.docker
+    # version: "6.0.2"
