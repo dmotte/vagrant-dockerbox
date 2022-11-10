@@ -11,19 +11,19 @@
   tasks:
     - name: Set custom timezone
       become: yes
-      timezone:
+      community.general.timezone:
         name: Europe/Rome
 
     - name: Execute apt update if the last one is more than 1 hour ago
       become: yes
-      apt:
+      ansible.builtin.apt:
         update_cache: yes
         cache_valid_time: 3600
       when: ansible_pkg_mgr == "apt"
 
     - name: Ensure some packages are installed
       become: yes
-      package:
+      ansible.builtin.package:
         name:
           - rsync # Needed by the "synchronize" Ansible module
           - git
@@ -37,12 +37,12 @@
           - jq
 
     - name: Pull the nginx Docker image
-      docker_image:
+      community.docker.docker_image:
         name: nginx
         source: pull
 
     - name: Main container
-      docker_container:
+      community.docker.docker_container:
         name: nginx-example
         image: nginx
         keep_volumes: no # Do not retain **anonymous** volumes when the container is removed
