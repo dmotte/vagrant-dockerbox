@@ -1,6 +1,7 @@
 #!/usr/bin/env ansible-playbook
 ---
-- hosts: all
+- name: Main play
+  hosts: all
 
   pre_tasks:
     - name: Check Ansible version
@@ -10,22 +11,22 @@
 
   tasks:
     - name: Execute apt update if the last one is more than 1 hour ago
-      become: yes
+      become: true
       ansible.builtin.apt:
-        update_cache: yes
+        update_cache: true
         cache_valid_time: 3600
       when: ansible_pkg_mgr == "apt"
 
     - name: Include the geerlingguy.pip role
       ansible.builtin.include_role: { name: geerlingguy.pip }
       vars:
-        ansible_become: yes
+        ansible_become: true
         pip_install_packages: [docker]
 
     - name: Include the geerlingguy.docker role
       ansible.builtin.include_role: { name: geerlingguy.docker }
       vars:
-        ansible_become: yes
+        ansible_become: true
         docker_users: ["{{ ansible_user }}"]
 
     - name: Reset the Ansible SSH connection to reload the current user's permissions

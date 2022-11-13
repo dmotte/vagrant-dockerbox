@@ -1,6 +1,7 @@
 #!/usr/bin/env ansible-playbook
 ---
-- hosts: all
+- name: Main play
+  hosts: all
 
   pre_tasks:
     - name: Check Ansible version
@@ -10,19 +11,19 @@
 
   tasks:
     - name: Set custom timezone
-      become: yes
+      become: true
       community.general.timezone:
         name: Europe/Rome
 
     - name: Execute apt update if the last one is more than 1 hour ago
-      become: yes
+      become: true
       ansible.builtin.apt:
-        update_cache: yes
+        update_cache: true
         cache_valid_time: 3600
       when: ansible_pkg_mgr == "apt"
 
     - name: Ensure some packages are installed
-      become: yes
+      become: true
       ansible.builtin.package:
         name:
           - rsync # Needed by the "synchronize" Ansible module
@@ -45,7 +46,7 @@
       community.docker.docker_container:
         name: nginx-example
         image: nginx
-        keep_volumes: no # Do not retain **anonymous** volumes when the container is removed
+        keep_volumes: false # Do not retain **anonymous** volumes when the container is removed
         restart_policy: always
         ports:
           - 80:80
