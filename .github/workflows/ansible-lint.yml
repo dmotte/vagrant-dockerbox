@@ -20,8 +20,8 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Set up Ansible Lint
-        run: pip3 install ansible-lint
+      - name: Set up Ansible and Ansible Lint
+        run: pip3 install ansible ansible-lint
 
-      - name: Run Ansible Lint
+      - name: Run Ansible Lint in strict mode
         run: ansible-lint -s
