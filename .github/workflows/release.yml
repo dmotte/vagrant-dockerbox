@@ -7,13 +7,11 @@ name: release
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - .github/workflows/ansible-lint.yml
-      - .github/dependabot.yml
-      - test/**
-      - icon-*.png
-      - LICENSE
-      - README.md
+    paths:
+      - .github/workflows/release.yml
+      - playbook.yml
+      - requirements.yml
+      - Vagrantfile
   schedule:
     # Runs automatically on the 27th of every month at 04:30 UTC
     - cron: "30 04 27 * *"
