@@ -31,7 +31,7 @@ jobs:
       - name: Cache Vagrant boxes
         # Caches that are not accessed within the last week will be evicted
         # (see https://github.com/actions/cache#cache-limits)
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.vagrant.d/boxes
           key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
