@@ -9,6 +9,7 @@ on:
     branches: [main]
     paths-ignore:
       - .github/workflows/ansible-lint.yml
+      - .github/dependabot.yml
       - test/**
       - icon-*.png
       - LICENSE
