@@ -2,7 +2,7 @@
 
 ![icon](icon-128.png)
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dmotte/vagrant-dockerbox/release?logo=github&style=flat-square)](https://github.com/dmotte/vagrant-dockerbox/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/dmotte/vagrant-dockerbox/release.yml?branch=main&logo=github&style=flat-square)](https://github.com/dmotte/vagrant-dockerbox/actions)
 [![Vagrant Cloud](https://img.shields.io/badge/vagrant-dmotte/dockerbox-blue?logo=vagrant&style=flat-square)](https://app.vagrantup.com/dmotte/boxes/dockerbox)
 
 :package: **Debian Vagrant box** with **Docker** (and **docker-compose**).
