@@ -17,7 +17,7 @@
         cache_valid_time: 3600
       when: ansible_pkg_mgr == "apt"
 
-    - name: Install pip and the Docker library for Python
+    - name: Install the Docker library for Python with pip
       ansible.builtin.include_role: { name: geerlingguy.pip }
       vars:
         ansible_become: true
