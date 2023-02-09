@@ -17,11 +17,15 @@
         cache_valid_time: 3600
       when: ansible_pkg_mgr == "apt"
 
-    - name: Install the Docker library for Python with pip
-      ansible.builtin.include_role: { name: geerlingguy.pip }
-      vars:
-        ansible_become: true
-        pip_install_packages: [docker]
+    - name: Ensure pip is installed
+      become: true
+      ansible.builtin.package:
+        name: python3-pip # Needed by the "ansible.builtin.pip" Ansible module
+
+    - name: Install the Docker library for Python with pip as unprivileged user
+      ansible.builtin.pip:
+        extra_args: --user
+        name: docker
 
     - name: Install Docker
       ansible.builtin.include_role: { name: geerlingguy.docker }
