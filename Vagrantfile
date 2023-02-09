@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision "ansible" do |ansible|
         ansible.galaxy_role_file = "requirements.yml"
         ansible.playbook = "playbook.yml"
-        ansible.extra_vars = { ansible_python_interpreter:"/usr/bin/python3" }
+        ansible.extra_vars = { ansible_python_interpreter: "/usr/bin/python3" }
     end
 
     config.ssh.insert_key = false # This is usually recommended for base boxes
