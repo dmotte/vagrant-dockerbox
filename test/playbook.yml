@@ -10,11 +10,6 @@
         msg: The Ansible version is too old for this playbook
 
   tasks:
-    - name: Set custom timezone
-      become: true
-      community.general.timezone:
-        name: Europe/Rome
-
     - name: Execute apt update if the last one is more than 1 hour ago
       become: true
       ansible.builtin.apt:
