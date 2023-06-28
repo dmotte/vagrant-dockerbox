@@ -22,10 +22,10 @@
       ansible.builtin.package:
         name: [docker.io, docker-compose]
 
-    - name: Add the vagrant user to the docker group
+    - name: Add the main user to the docker group
       become: true
       ansible.builtin.user:
-        name: vagrant
+        name: "{{ ansible_user_id }}"
         groups: [docker]
         append: true
 
