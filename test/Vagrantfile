@@ -11,6 +11,14 @@ Vagrant.configure("2") do |config|
         vb.cpus = 4
     end
 
+    # Needs VAGRANT_EXPERIMENTAL=disks
+    config.vm.disk :disk, size: "120GB", primary: true
+
+    config.vm.provision "shell", inline: <<-SHELL
+        echo -e "d\nn\np\n\n\n\nw" | fdisk /dev/sda
+        resize2fs /dev/sda1
+    SHELL
+
     config.vm.network "private_network", ip: "192.168.56.100"
 
     config.vm.synced_folder "~/git", "/home/vagrant/git"
