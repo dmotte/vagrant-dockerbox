@@ -40,7 +40,7 @@
     - name: Main container
       community.docker.docker_container:
         name: nginx-example
-        image: nginx
+        image: docker.io/library/nginx:latest
         keep_volumes: false # Do not retain **anonymous** volumes when the container is removed
         restart_policy: always
         ports:
