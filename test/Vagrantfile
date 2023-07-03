@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
         vb.cpus = 4
     end
 
-    # Needs VAGRANT_EXPERIMENTAL=disks
+    ENV["VAGRANT_EXPERIMENTAL"] = "disks"
     config.vm.disk :disk, size: "120GB", primary: true
 
     config.vm.provision "shell", inline: <<-SHELL
