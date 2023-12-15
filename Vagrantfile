@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
     config.vm.hostname = "dockerbox"
 
     config.vm.provision "shell", inline: <<-SHELL
-        apt-get update && apt-get install -y docker.io docker-compose
+        apt-get update; apt-get install -y docker.io docker-compose
         usermod -aG docker vagrant
     SHELL
 
