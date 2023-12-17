@@ -11,4 +11,4 @@
 
 ## Usage
 
-Please refer to the :file_folder: `test` folder to see an example of how I use this box.
+See https://github.com/dmotte/misc/blob/main/examples/vagrant-ansible-provisioner for inspiration on how you could use this box.
