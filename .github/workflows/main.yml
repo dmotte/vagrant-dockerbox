@@ -1,0 +1,28 @@
+---
+name: main
+
+on:
+  push: # All branches and tags
+  schedule:
+    # Runs automatically on the 27th of every month at 04:30 UTC
+    - cron: "30 04 27 * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  job:
+    uses: dmotte/misc/.github/workflows/cicd-with-script.yml@main
+    with:
+      # We use this virtual environment because it supports nested
+      # virtualization.
+      # See https://github.com/actions/virtual-environments/issues/433 for more
+      # information
+      runs-on: macos-12
+      env: >
+        BOX_AUTHOR=dmotte BOX_NAME=dockerbox
+        BOX_DESCRIPTION='Debian Vagrant box with Docker (and docker-compose)
+        (github.com/dmotte/vagrant-dockerbox)'
+      path: $GITHUB_ACTION_PATH/../../scripts/cicd/vagrant-box.sh
+    secrets:
+      secret01: ${{ secrets.VAGRANTCLOUD_TOKEN }}
