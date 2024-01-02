@@ -19,10 +19,11 @@ jobs:
       # See https://github.com/actions/virtual-environments/issues/433 for more
       # information
       runs-on: macos-12
-      env: >
+      script: >
+        brew install coreutils;
         BOX_AUTHOR=dmotte BOX_NAME=dockerbox
         BOX_DESCRIPTION='Debian Vagrant box with Docker (and docker-compose)
         (github.com/dmotte/vagrant-dockerbox)'
-      path: $GITHUB_ACTION_PATH/../../scripts/cicd/vagrant-box.sh
+        bash "$(realpath "$GITHUB_ACTION_PATH/../../scripts/cicd/vagrant-box.sh")"
     secrets:
       secret01: ${{ secrets.VAGRANTCLOUD_TOKEN }}
